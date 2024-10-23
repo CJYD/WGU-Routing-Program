@@ -1,5 +1,3 @@
-# Student ID: 012282017
-
 import datetime
 
 
