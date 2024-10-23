@@ -6,6 +6,7 @@ import datetime
 from Load import package_table
 from Deliver import total_mileage
 
+
 #User Interface
 class Main:
     def __init__(self):
@@ -52,6 +53,9 @@ class Main:
         try:
             user_time = input("\nPlease enter a time to check the status of a package(s). Use the following format, HH:MM:SS: ")
             status_time = self.change_status(user_time)
+            # Update package address
+            if status_time >= datetime.timedelta(hours=10, minutes=20):
+                self.update_package_address(9, "410 S State St")
             if single_package:
                 self.single_package_status(status_time)
             else:
@@ -64,6 +68,10 @@ class Main:
     def change_status(self, time_str):
         h, m, s = map(int, time_str.split(":"))
         return datetime.timedelta(hours=h, minutes=m, seconds=s)
+
+    def update_package_address(self, package_id, new_address):
+        package = package_table.search(package_id)
+        package.address = new_address
 
     #Display status of a single package
     # O(1) time complexity
